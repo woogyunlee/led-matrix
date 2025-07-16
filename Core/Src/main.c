@@ -232,6 +232,7 @@ int main(void)
   //HAL_GPIO_WritePin()
 
   while (1){
+  	//wglee test at home
 //	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_8);
 //	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_9);
 //	sprintf((char *)buffer, "Hello, World!\r\n");
