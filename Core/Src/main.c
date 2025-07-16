@@ -100,6 +100,7 @@ uint8_t GreenMatrix[ROWS][COLS] = {	 //green real wg
   {0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0}
 };
+#if 0 //arrow  
 uint8_t RedMatrix[ROWS][COLS] = {  //red real wg
   {0,0,1,1,1,1,1,1,1,1},
   {0,1,1,1,1,1,1,1,1,1},
@@ -112,6 +113,20 @@ uint8_t RedMatrix[ROWS][COLS] = {  //red real wg
   {0,0,1,1,0,0,0,1,1,0},
   {0,0,1,0,0,0,0,1,0,0}
 };  
+#else
+uint8_t RedMatrix[ROWS][COLS] = {	// x
+  {1,0,0,0,0,0,0,0,0,1},
+  {0,1,0,0,0,0,0,0,1,0},
+  {0,0,1,0,0,0,0,1,0,0},
+  {0,0,0,1,0,0,1,0,0,0},
+  {0,0,0,0,1,1,0,0,0,0},
+  {0,0,0,0,1,1,0,0,0,0},
+  {0,0,0,1,0,0,1,0,0,0},
+  {0,0,1,0,0,0,0,1,0,0},
+  {0,1,0,0,0,0,0,0,1,0},
+  {1,0,0,0,0,0,0,0,0,1}
+};
+#endif
 
 void sendRGB(uint8_t Blue, uint8_t Green, uint8_t Red) {
 	HAL_GPIO_WritePin(GPIOC, SER_RED_Pin, 		(Blue & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
