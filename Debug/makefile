@@ -60,8 +60,8 @@ all: main-build
 main-build: fw20250707.elf secondary-outputs
 
 # Tool invocations
-fw20250707.elf fw20250707.map: $(OBJS) $(USER_OBJS) C:\Users\julys\OneDrive\00.fw20250707\fw20250707.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "fw20250707.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\julys\OneDrive\00.fw20250707\fw20250707.ld" --specs=nosys.specs -Wl,-Map="fw20250707.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+fw20250707.elf fw20250707.map: $(OBJS) $(USER_OBJS) C:\Test\led-matrix\fw20250707.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "fw20250707.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Test\led-matrix\fw20250707.ld" --specs=nosys.specs -Wl,-Map="fw20250707.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

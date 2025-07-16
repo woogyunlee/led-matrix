@@ -76,31 +76,7 @@ void SystemClock_Config(void);
 uint8_t buffer[256];
 
 // Arrow RGB pattern (Red head, green shaft, blue background)
-uint8_t redMatrix[ROWS][COLS] = {
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0}
-};
-uint8_t greenMatrix[ROWS][COLS] = {
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0},
-  {0,0,0,0,0,0,0,0,0,0}
-};
-uint8_t blueMatrix[ROWS][COLS] = {  //red real wg
+uint8_t BlueMatrix[ROWS][COLS] = {
   {0,0,1,0,0,0,0,1,0,0},
   {0,1,1,0,0,0,1,1,0,0},
   {1,1,1,0,0,1,1,1,1,1},
@@ -111,12 +87,36 @@ uint8_t blueMatrix[ROWS][COLS] = {  //red real wg
   {1,1,1,1,1,1,1,1,1,1},
   {1,1,1,1,1,1,1,1,1,0},
   {1,1,1,1,1,1,1,1,0,0}
+};
+uint8_t GreenMatrix[ROWS][COLS] = {	 //green real wg
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0}
+};
+uint8_t RedMatrix[ROWS][COLS] = {  //red real wg
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0}
 };  
 
-void sendRGB(uint8_t r, uint8_t g, uint8_t b) {
-	HAL_GPIO_WritePin(GPIOC, SER_RED_Pin, 		(r & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOC, SER_GREEN_Pin, 	(g & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOC, SER_BLUE_Pin, 	(b & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);		
+void sendRGB(uint8_t Blue, uint8_t Green, uint8_t Red) {
+	HAL_GPIO_WritePin(GPIOC, SER_RED_Pin, 		(Blue & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOC, SER_GREEN_Pin, 	(Green & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(GPIOC, SER_BLUE_Pin, 	(Red & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);		
 	HAL_GPIO_WritePin(GPIOC, CLK_PIN, GPIO_PIN_SET);		// 시프트 클럭 ↑
 	HAL_GPIO_WritePin(GPIOC, CLK_PIN, GPIO_PIN_RESET);		// 시프트 클럭 ↓				
 }
@@ -131,7 +131,7 @@ void displayMatrix() {
         selectRow(row);
 		  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_RESET);	 // 래치 ↓
         for (int col = 0; col < COLS; col++)
-            sendRGB(redMatrix[row][col], greenMatrix[row][col], blueMatrix[row][col]);
+            sendRGB(BlueMatrix[row][col], GreenMatrix[row][col], RedMatrix[row][col]);
 		  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_SET);		 // 래치 ↑        
 		  //HAL_Delay(10);
     }
@@ -144,7 +144,7 @@ static uint8_t col_num = 0;
 void displayMatrix_386us() {
 	  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_RESET);	 // 래치 ↓
      for (int col = 0; col < COLS; col++)
-         sendRGB(redMatrix[row_num%ROWS][col], greenMatrix[row_num%ROWS][col], blueMatrix[row_num%ROWS][col]);
+         sendRGB(BlueMatrix[row_num%ROWS][col], GreenMatrix[row_num%ROWS][col], RedMatrix[row_num%ROWS][col]);
 	  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_SET);		 // 래치 ↑        
 }
 
@@ -152,9 +152,9 @@ void displayMatrix_386us() {
 
     for (int r = 0; r < ROWS; r++) {
         for (int c = 0; c < COLS; c++) {
-            redMatrix[r][c] = 0;
-            greenMatrix[r][c] = 0;
-            blueMatrix[r][c] = 0x01; // Blue background
+            BlueMatrix[r][c] = 0;
+            GreenMatrix[r][c] = 0;
+            RedMatrix[r][c] = 0x01; // Blue background
         }
     }
 }*/
