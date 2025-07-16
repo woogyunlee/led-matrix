@@ -1,0 +1,11 @@
+# STM32CubeIDE specific files
+.metadata/
+.settings/
+Debug/
+Release/
+*.o
+*.elf
+*.map
+*.hex
+*.bin
+*.out
