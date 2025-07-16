@@ -1,0 +1,8 @@
+../Core/Src/main.c:116:6:sendRGB	16	static
+../Core/Src/main.c:123:6:selectRow	16	static
+../Core/Src/main.c:129:6:displayMatrix	24	static
+../Core/Src/main.c:144:6:displayMatrix_386us	24	static
+../Core/Src/main.c:166:6:HAL_TIM_PeriodElapsedCallback	16	static
+../Core/Src/main.c:190:5:main	8	static
+../Core/Src/main.c:252:6:SystemClock_Config	72	static
+../Core/Src/main.c:295:6:Error_Handler	4	static,ignoring_inline_asm
