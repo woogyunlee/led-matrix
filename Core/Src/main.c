@@ -149,7 +149,6 @@ void displayMatrix_386us() {
 }
 
 /*void clearMatrix() {		
-
     for (int r = 0; r < ROWS; r++) {
         for (int c = 0; c < COLS; c++) {
             BlueMatrix[r][c] = 0;
@@ -220,7 +219,6 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
-//	test_74HC238();
 	HAL_TIM_Base_Start_IT(&htim2);
 	HAL_TIM_Base_Start_IT(&htim3);
 	HAL_TIM_Base_Start_IT(&htim4);
@@ -233,9 +231,9 @@ int main(void)
 
   while (1){
   	//wglee test at home
-//	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_8);
-//	HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_9);
-//	sprintf((char *)buffer, "Hello, World!\r\n");
+	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_8);
+	//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_9);
+	//sprintf((char *)buffer, "Hello, World!\r\n");
 	//HAL_UART_Transmit(&huart2, buffer, strlen((char *)buffer), 100);
 	//HAL_Delay(500);
 	//delay(500);
