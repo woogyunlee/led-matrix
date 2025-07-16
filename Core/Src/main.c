@@ -126,7 +126,7 @@ void selectRow(uint8_t value){	// 3비트 주소를 74HC238에 설정하는 함�
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, (value & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, (value & 0x08) ? GPIO_PIN_SET : GPIO_PIN_RESET);	
 }
-void displayMatrix() {
+/*void displayMatrix() {
     for (int row = 0; row < ROWS; row++) {
         selectRow(row);
 		  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_RESET);	 // 래치 ↓
@@ -136,7 +136,7 @@ void displayMatrix() {
 		  //HAL_Delay(10);
     }
 	 //HAL_Delay(10);
-}
+}*/
 static uint8_t row_num = 0;
 static uint8_t rotate = 0;
 static uint8_t col_num = 0;
@@ -147,7 +147,6 @@ void displayMatrix_386us() {
          sendRGB(BlueMatrix[row_num%ROWS][col], GreenMatrix[row_num%ROWS][col], RedMatrix[row_num%ROWS][col]);
 	  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_SET);		 // 래치 ↑        
 }
-
 /*void clearMatrix() {		
     for (int r = 0; r < ROWS; r++) {
         for (int c = 0; c < COLS; c++) {
