@@ -101,24 +101,24 @@ uint8_t GreenMatrix[ROWS][COLS] = {	 //green real wg
   {0,0,0,0,0,0,0,0,0,0}
 };
 uint8_t RedMatrix[ROWS][COLS] = {  //red real wg
-  {0,0,1,0,0,0,0,1,0,0},
-  {0,1,1,0,0,0,1,1,0,0},
-  {1,1,1,0,0,1,1,1,1,1},
-  {1,1,1,0,1,1,1,1,1,0},
-  {1,1,1,1,1,1,1,1,0,0},
-  {1,1,1,1,1,1,1,0,0,0},
-  {1,1,1,1,1,1,0,0,0,0},
+  {0,0,1,1,1,1,1,1,1,1},
+  {0,1,1,1,1,1,1,1,1,1},
   {1,1,1,1,1,1,1,1,1,1},
-  {1,1,1,1,1,1,1,1,1,0},
-  {1,1,1,1,1,1,1,1,0,0}
+  {0,0,0,0,1,1,1,1,1,1},
+  {0,0,0,1,1,1,1,1,1,1},
+  {0,0,1,1,1,1,1,1,1,1},
+  {0,1,1,1,1,1,0,1,1,1},
+  {1,1,1,1,1,0,0,1,1,1},
+  {0,0,1,1,0,0,0,1,1,0},
+  {0,0,1,0,0,0,0,1,0,0}
 };  
 
 void sendRGB(uint8_t Blue, uint8_t Green, uint8_t Red) {
 	HAL_GPIO_WritePin(GPIOC, SER_RED_Pin, 		(Blue & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOC, SER_GREEN_Pin, 	(Green & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOC, SER_BLUE_Pin, 	(Red & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);		
-	HAL_GPIO_WritePin(GPIOC, CLK_PIN, GPIO_PIN_SET);		// 시프트 클럭 ↑
 	HAL_GPIO_WritePin(GPIOC, CLK_PIN, GPIO_PIN_RESET);		// 시프트 클럭 ↓				
+	HAL_GPIO_WritePin(GPIOC, CLK_PIN, GPIO_PIN_SET);		// 시프트 클럭 ↑
 }
 void selectRow(uint8_t value){	// 3비트 주소를 74HC238에 설정하는 함수
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, (value & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
