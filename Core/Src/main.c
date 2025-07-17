@@ -100,7 +100,7 @@ uint8_t GreenMatrix[ROWS][COLS] = {	 //green real wg
   {0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0}
 };
-#if 0 //arrow  
+#if 0 //arrow
 uint8_t RedMatrix[ROWS][COLS] = {  //red real wg
   {0,0,1,1,1,1,1,1,1,1},
   {0,1,1,1,1,1,1,1,1,1},
