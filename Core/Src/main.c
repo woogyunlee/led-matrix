@@ -102,7 +102,7 @@ uint8_t GreenMatrix[ROWS][COLS] = {	 //green real wg
   {0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0}
 };
-#if 0 //arrow
+#if 1 //arrow
 uint8_t RedMatrix[ROWS][COLS] = {  //red real wg
   {0,0,1,1,1,1,1,1,1,1},
   {0,1,1,1,1,1,1,1,1,1},
@@ -134,12 +134,12 @@ void sendRGB(uint8_t Blue, uint8_t Green, uint8_t Red) {
 	HAL_GPIO_WritePin(GPIOC, SER_RED_Pin, 		(Blue & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOC, SER_GREEN_Pin, 	(Green & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOC, SER_BLUE_Pin, 	(Red & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);		
-	HAL_GPIO_WritePin(GPIOC, CLK_PIN, GPIO_PIN_SET);		// ?�프???�럭 ??
+	HAL_GPIO_WritePin(GPIOC, CLK_PIN, GPIO_PIN_SET);		// ?�프???�럭 ??
 	//delay_us(1);
-	HAL_GPIO_WritePin(GPIOC, CLK_PIN, GPIO_PIN_RESET);		// ?�프???�럭 ??			
+	HAL_GPIO_WritePin(GPIOC, CLK_PIN, GPIO_PIN_RESET);		// ?�프???�럭 ??			
 	//delay_us(1);
 }
-void selectRow(uint8_t value){	// 3비트 주소�?74HC238???�정?�는 ?�수
+void selectRow(uint8_t value){	// 3비트 주소�?74HC238???�정?�는 ?�수
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, (value & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, (value & 0x02) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, (value & 0x04) ? GPIO_PIN_SET : GPIO_PIN_RESET);
@@ -148,10 +148,10 @@ void selectRow(uint8_t value){	// 3비트 주소�?74HC238???�정?�는 ?�수
 /*void displayMatrix() {
     for (int row = 0; row < ROWS; row++) {
         selectRow(row);
-		  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_RESET);	 // ?�치 ??
+		  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_RESET);	 // ?�치 ??
         for (int col = 0; col < COLS; col++)
             sendRGB(BlueMatrix[row][col], GreenMatrix[row][col], RedMatrix[row][col]);
-		  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_SET);		 // ?�치 ??       
+		  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_SET);		 // ?�치 ??       
 		  //HAL_Delay(10);
     }
 	 //HAL_Delay(10);
@@ -161,10 +161,10 @@ static uint8_t row_num = 0;
 //static uint8_t col_num = 0;
 
 void displayMatrix_386us() {
-	  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_RESET);	 // ?�치 ??
+	  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_RESET);	 // ?�치 ??
      for (int col = 0; col < COLS; col++)
          sendRGB(BlueMatrix[row_num%ROWS][col], GreenMatrix[row_num%ROWS][col], RedMatrix[row_num%ROWS][col]);
-	  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_SET);		 // ?�치 ??       
+	  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_SET);		 // ?�치 ??       
 }
 /*void clearMatrix() {		
     for (int r = 0; r < ROWS; r++) {
@@ -182,8 +182,8 @@ void displayMatrix_386us() {
 //HAL_UART
 #if 0
 void delay_us(uint16_t time) {
-	__HAL_TIM_SET_COUNTER(&htim1, 0);              // ?�?�머�?0?�로 초기??
-	while((__HAL_TIM_GET_COUNTER(&htim1))<time);   // ?�정???�간까�? ?��?
+	__HAL_TIM_SET_COUNTER(&htim1, 0);              // ?�?�머�?0?�로 초기??
+	while((__HAL_TIM_GET_COUNTER(&htim1))<time);   // ?�정???�간까�? ?��?
 }
 #endif
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
@@ -242,6 +242,7 @@ int main(void)
   MX_TIM2_Init();
   MX_TIM3_Init();
   MX_TIM4_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
   //HAL_TIM_Base_Start_IT(&htim1);
 	HAL_TIM_Base_Start_IT(&htim2);
