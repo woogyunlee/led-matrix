@@ -102,7 +102,7 @@ uint8_t GreenMatrix[ROWS][COLS] = {	 //green real wg
   {0,0,0,0,0,0,0,0,0,0},
   {0,0,0,0,0,0,0,0,0,0}
 };
-#if 1 //arrow
+#if 0 //arrow
 uint8_t RedMatrix[ROWS][COLS] = {  //red real wg
   {0,0,1,1,1,1,1,1,1,1},
   {0,1,1,1,1,1,1,1,1,1},
@@ -190,7 +190,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	static int num = 0;
 	
 	if(htim->Instance == TIM2){		//368 usec
-		displayMatrix_386us();
+		//displayMatrix_386us();
 	}
 	if(htim->Instance == TIM3){	//1second
 		//HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_8);
@@ -254,6 +254,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   //HAL_GPIO_WritePin()
+	displayMatrix_386us();
 
   while (1){
   	//wglee test at home
