@@ -135,9 +135,9 @@ void sendRGB(uint8_t Blue, uint8_t Green, uint8_t Red) {
 	HAL_GPIO_WritePin(GPIOC, SER_GREEN_Pin, 	(Green & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(GPIOC, SER_BLUE_Pin, 	(Red & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);		
 	HAL_GPIO_WritePin(GPIOC, CLK_PIN, GPIO_PIN_SET);		// ?�프???�럭 ??
-	//delay_us(1);
+	for (volatile int d = 0; d < 10; d++);  // 약간의 지연
 	HAL_GPIO_WritePin(GPIOC, CLK_PIN, GPIO_PIN_RESET);		// ?�프???�럭 ??			
-	//delay_us(1);
+	for (volatile int d = 0; d < 10; d++);  // 약간의 지연
 }
 void selectRow(uint8_t value){	// 3비트 주소�?74HC238???�정?�는 ?�수
 	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, (value & 0x01) ? GPIO_PIN_SET : GPIO_PIN_RESET);
@@ -161,10 +161,12 @@ static uint8_t row_num = 0;
 //static uint8_t col_num = 0;
 
 void displayMatrix_386us() {
-	  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_RESET);	 // ?�치 ??
      for (int col = 0; col < COLS; col++)
          sendRGB(BlueMatrix[row_num%ROWS][col], GreenMatrix[row_num%ROWS][col], RedMatrix[row_num%ROWS][col]);
-	  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_SET);		 // ?�치 ??       
+	  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_SET);		 // ?�치 ??   
+	  for (volatile int d = 0; d < 10; d++);  // 약간의 지연
+	  HAL_GPIO_WritePin(GPIOC, LATCH_PIN, GPIO_PIN_RESET);	 // ?�치 ??
+	  for (volatile int d = 0; d < 10; d++);  // 약간의 지연
 }
 /*void clearMatrix() {		
     for (int r = 0; r < ROWS; r++) {
